@@ -3,13 +3,156 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <title>Tic Tac Toe</title>
+
+    <style>
+        .box {
+            width: 300px;
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            margin-top: 20px;
+        }
+
+        .box div {
+            border: 1px solid;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            cursor: pointer;
+            background-color:#FFC0CB;
+        }
+    </style>
 </head>
 
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+
+    <div class="container">
+        <h3>TIC TAC TOE</h3>
+
+        <label>Player 1: </label>
+        <input type="text" id="Player-1" placeholder="enter name">
+        <br><br>
+
+        <label>Player 2: </label>
+        <input type="text" id="player-2" placeholder="enter name">
+        <br><br>
+
+        <button id="submit" onclick="gamestart()">Submit</button>
+    </div>
+
+    <div class="message"></div>
+
+    <div class="box">
+        <div id="1" onclick="player(1)"></div>
+        <div id="2" onclick="player(2)"></div>
+        <div id="3" onclick="player(3)"></div>
+        <div id="4" onclick="player(4)"></div>
+        <div id="5" onclick="player(5)"></div>
+        <div id="6" onclick="player(6)"></div>
+        <div id="7" onclick="player(7)"></div>
+        <div id="8" onclick="player(8)"></div>
+        <div id="9" onclick="player(9)"></div>
+    </div>
+
+    <script>
+
+        let player1 = "";
+        let player2 = "";
+        let currentplayer = "X";
+
+        let board = ["", "", "", "", "", "", "", "", ""];
+
+        function gamestart() {
+
+            player1 = document.getElementById("Player-1").value;
+            player2 = document.getElementById("player-2").value;
+
+            document.querySelector(".message").innerHTML =
+                `${player1}, you're up now`;
+        }
+
+        function player(id) {
+
+            if (board[id - 1] != "") {
+                return;
+            }
+
+            board[id - 1] = currentplayer;
+
+            document.getElementById(id).innerHTML = currentplayer;
+
+            if (winner()) {
+                return;
+            }
+
+
+                if (currentplayer === "X") {
+                    currentplayer = "O";
+
+                    document.querySelector(".message").innerHTML =
+                        `${player2}, you're up now`;
+                }
+
+                else {
+
+                    currentplayer = "X";
+
+                    document.querySelector(".message").innerHTML =
+                        `${player1}, you're up now`;
+                }
+            
+        }
+
+        function winner() {
+
+            let winpatterns = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            for (let pattern of winpatterns) {
+
+                let [a, b, c] = pattern;
+
+                if (
+                    board[a] !== "" &&
+                    board[a] === board[b] &&
+                    board[b] === board[c]
+                ) {
+
+                    let username = board[a] === "X" ? player1 : player2;
+
+
+                    document.querySelector(".message").innerHTML =
+                        `${username} congratulations you won!`;
+
+                     currentplayer = ""
+
+                    let one = document.querySelector(`.box div:nth-child(${a + 1})`)
+                    let two = document.querySelector(`.box div:nth-child(${b + 1})`)
+                    let three = document.querySelector(`.box div:nth-child(${c + 1})`)
+
+                    one.style.backgroundColor = "#800080";
+                    two.style.backgroundColor = "#800080";
+                    three.style.backgroundColor = "#800080";
+
+                    return true;
+
+                }
+            }
+
+            return false;
+        }
+
+    </script>
 
 </body>
 
