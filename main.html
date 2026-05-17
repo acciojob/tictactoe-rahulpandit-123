@@ -69,7 +69,7 @@
         let player1 = "";
         let player2 = "";
 
-        let currentplayer = "X";
+        let currentplayer = "x";
 
         let board = ["", "", "", "", "", "", "", "", ""];
 
@@ -96,9 +96,9 @@
                 return;
             }
 
-            if (currentplayer === "X") {
+            if (currentplayer === "x") {
 
-                currentplayer = "O";
+                currentplayer = "o";
 
                 document.querySelector(".message").innerHTML =
                     `${player2}, you're up`;
@@ -107,7 +107,7 @@
 
             else {
 
-                currentplayer = "X";
+                currentplayer = "x";
 
                 document.querySelector(".message").innerHTML =
                     `${player1}, you're up`;
@@ -141,7 +141,7 @@
                 ) {
 
                     let username =
-                        board[a] === "X" ? player1 : player2;
+                        board[a] === "x" ? player1 : player2;
 
                     document.querySelector(".message").innerHTML =
                         `${username} congratulations you won!`;
